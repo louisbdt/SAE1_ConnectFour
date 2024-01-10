@@ -48,12 +48,12 @@ def construirePlateau() -> list:
         plateau.append(plateau2)
     return plateau
 
-def placerPionPlateau(plateau: list, pion, numCol: int) -> int:
+def placerPionPlateau(plateau: list, pion: dict, numCol: int) -> int:
     """
     Place le pion dans la colonne passée en paramètre et retourne le numéro de ligne.
 
     :param plateau: Tableau 2D représentant le plateau
-    :param pion: Dictionnaire Dictionnaire qui représente l'objet pion
+    :param pion: Dictionnaire qui représente l'objet pion
     :param numCol : Numéro de colonne ou l'on souhaite placer le pion
     :return: Numéro de ligne ou se trouve le pion, ou -1 si la colonne est pleine
     """
@@ -72,4 +72,34 @@ def placerPionPlateau(plateau: list, pion, numCol: int) -> int:
     for numLigne in range(const.NB_LINES -1, -1, -1):
         if plateau[numLigne][numCol] is None :
             plateau[numLigne][numCol] = pion
-            return numLigne 
+            return numLigne
+
+def detecter4horizontalPlateau(plateau: list, couleur: int) -> list:
+    """
+    Retourne les séries de 4 pions alignés horizontalement sur le plateau ou une liste vide s'il n'y en as pas
+
+    :param plateau: Tableau 2D représentant le plateau
+    :param couleur: Entier qui désigne la couleur du pion
+    :return: Liste des séries de 4 pions
+    """
+    if not type_plateau(plateau) :
+        raise TypeError("detecter4horizontalPlateau : Le premier paramètre ne correspond pas à un plateau")
+    if type(couleur) != int:
+        raise TypeError("detecter4horizontalPlateau : Le second paramètre n'est pas un entier")
+    if couleur != 1 and couleur != 0 :
+        raise ValueError("detecter4horizontalPlateau : La valeur de la couleur {couleur} n'est pas correcte")
+
+    liste_serie= []
+    for lignes in plateau:
+        for i in range(len(lignes) - 3):
+            if lignes[i] != None and lignes[i + 1] != None and lignes[i + 2] != None and lignes[i + 3] != None:
+                serie_pion = [lignes[i], lignes[i + 1], lignes[i + 2], lignes[i + 3]]
+                if getCouleurPion(serie_pion[0]) == couleur and getCouleurPion(
+                        serie_pion[1]) == couleur and getCouleurPion(serie_pion[2]) == couleur and getCouleurPion(
+                        serie_pion[3]) == couleur:
+                    liste_serie.extend(serie_pion)
+                else:
+                    del serie_pion
+    return liste_serie
+
+

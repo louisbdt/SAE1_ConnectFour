@@ -42,6 +42,7 @@ def construirePion(couleur: int) -> dict:
         raise ValueError ("construirePion : la couleur (valeur_du_paramètre) n’est pas correcte")
     return pion
 
+
 def getCouleurPion(pion: dict) -> int:
     """
     Renvoie la couleur du pion passé en paramètre
@@ -98,3 +99,4 @@ def setIdPion(pion: dict, valeurId: int) -> None:
     if type(valeurId) != int :
         raise TypeError(" setIdPion : Le second paramètre n’est pas un entier")
     return None
+
