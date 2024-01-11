@@ -80,7 +80,7 @@ def detecter4horizontalPlateau(plateau: list, couleur: int) -> list:
 
     :param plateau: Tableau 2D représentant le plateau
     :param couleur: Entier qui désigne la couleur du pion
-    :return: Liste des séries de 4 pions
+    :return: Liste des séries de 4 pions alignés horizontalements
     """
     if not type_plateau(plateau) :
         raise TypeError("detecter4horizontalPlateau : Le premier paramètre ne correspond pas à un plateau")
@@ -94,12 +94,83 @@ def detecter4horizontalPlateau(plateau: list, couleur: int) -> list:
         for i in range(len(lignes) - 3):
             if lignes[i] != None and lignes[i + 1] != None and lignes[i + 2] != None and lignes[i + 3] != None:
                 serie_pion = [lignes[i], lignes[i + 1], lignes[i + 2], lignes[i + 3]]
-                if getCouleurPion(serie_pion[0]) == couleur and getCouleurPion(
-                        serie_pion[1]) == couleur and getCouleurPion(serie_pion[2]) == couleur and getCouleurPion(
-                        serie_pion[3]) == couleur:
+                if getCouleurPion(serie_pion[0]) == couleur and getCouleurPion(serie_pion[1]) == couleur and getCouleurPion(serie_pion[2]) == couleur and getCouleurPion(serie_pion[3]) == couleur:
                     liste_serie.extend(serie_pion)
                 else:
                     del serie_pion
     return liste_serie
 
+def detecter4verticalPlateau(plateau: list, couleur: int) -> list:
+   """
+    Retourne les séries de 4 pions alignés horizontalement sur le plateau ou une liste vide s'il n'y en as pas
+   :param plateau: Tableau 2D représentant le plateau
+   :param couleur: Entier qui désigne la couleur du pion
+   :return: Liste des séries de 4 pions alignés verticalements
+   """
+
+   if not type_plateau(plateau):
+       raise TypeError("detecter4verticalPlateau : Le premier paramètre ne correspond pas à un plateau")
+   if type(couleur) != int:
+       raise TypeError("detecter4verticalPlateau : Le second paramètre n'est pas un entier")
+   if couleur != 1 and couleur != 0:
+       raise ValueError(f"detecter4verticalPlateau : La valeur de la couleur {couleur} n'est pas correcte")
+
+   liste_serie = []
+   for colonnes in range(len(plateau)):
+       for i in range(5):
+           if plateau[i][colonnes] != None and plateau[i + 1][colonnes] != None and plateau[i + 2][colonnes] != None and plateau[i + 3][colonnes] != None:
+                    serie_pion = [plateau[i][colonnes], plateau[i + 1][colonnes], plateau[i + 2][colonnes],plateau[i + 3][colonnes]]
+                    if getCouleurPion(serie_pion[0]) == couleur and getCouleurPion(serie_pion[1]) == couleur and getCouleurPion(serie_pion[2]) == couleur and getCouleurPion(serie_pion[3]) == couleur:
+                        liste_serie.extend(serie_pion)
+                    else:
+                        del serie_pion
+   return liste_serie
+
+def detecter4diagonaleDirectePlateau(plateau: list, couleur: int)->list:
+    """
+        Retourne les séries de 4 pions alignés dans la diagonale directe du haut vers le bas sur le plateau
+        :param plateau: Tableau 2D représentant le plateau
+        :param couleur: Entier qui désigne la couleur du pion
+        :return: Liste des séries de 4 pions alignés ou liste vide
+    """
+    if not type_plateau(plateau):
+        raise TypeError("detecter4diagonaleDirectePlateau : Le premier paramètre ne correspond pas à un plateau")
+    if type(couleur) != int:
+        raise TypeError("detecter4diagonaleDirectePlateau : Le second paramètre n'est pas un entier")
+    if couleur != 1 and couleur != 0:
+        raise ValueError(f"detecter4diagonaleDirectePlateau : La valeur de la couleur {couleur} n'est pas correcte")
+    liste_serie = []
+    for lignes in range(len(plateau)-3):
+        for colonnes in range(len(plateau[lignes])-3):
+            if plateau[lignes][colonnes] != None and plateau[lignes+1][colonnes+1] != None and plateau[lignes+2][colonnes+2] != None and plateau[lignes+3][colonnes+3] != None:
+                serie_pion = [plateau[lignes][colonnes],plateau[lignes+1][colonnes+1],plateau[lignes+2][colonnes+2],plateau[lignes+3][colonnes+3]]
+                if getCouleurPion(serie_pion[0]) == couleur and getCouleurPion(serie_pion[1]) == couleur and getCouleurPion(serie_pion[2]) == couleur and getCouleurPion(serie_pion[3]) == couleur:
+                    liste_serie.extend(serie_pion)
+                else:
+                    del serie_pion
+    return liste_serie
+
+def detecter4diagonaleIndirectePlateau(plateau: list, couleur: int)-> list:
+    """
+        Retourne les séries de 4 pions alignés dans la diagonale directe du haut vers le bas sur le plateau
+        :param plateau: Tableau 2D représentant le plateau
+        :param couleur: Entier qui désigne la couleur du pion
+        :return: Liste des séries de 4 pions alignés ou liste vide
+    """
+    if not type_plateau(plateau):
+        raise TypeError("detecter4diagonaleIndirectePlateau : Le premier paramètre ne correspond pas à un plateau")
+    if type(couleur) != int:
+        raise TypeError("detecter4diagonaleIndirectePlateau : Le second paramètre n'est pas un entier")
+    if couleur != 1 and couleur != 0:
+        raise ValueError(f"detecter4diagonaleIndirectePlateau : La valeur de la couleur {couleur} n'est pas correcte")
+    liste_serie = []
+    for lignes in range(3,len(plateau)):
+        for colonnes in range(lignes):
+            if plateau[lignes][colonnes]!=None and plateau[lignes-1][colonnes+1] != None and plateau[lignes-2][colonnes+2] != None and plateau[lignes-3][colonnes+3] != None:
+                serie_pion = [plateau[lignes][colonnes],plateau[lignes-1][colonnes+1],plateau[lignes-2][colonnes+2],plateau[lignes-3][colonnes+3]]
+                if getCouleurPion(serie_pion[0]) == couleur and getCouleurPion(serie_pion[1]) == couleur and getCouleurPion(serie_pion[2]) == couleur and getCouleurPion(serie_pion[3]) == couleur:
+                    liste_serie.extend(serie_pion)
+                else:
+                    del serie_pion
+    return liste_serie
 
