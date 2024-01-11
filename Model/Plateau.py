@@ -176,9 +176,10 @@ def detecter4diagonaleIndirectePlateau(plateau: list, couleur: int)-> list:
 
 def getPionsGagnantsPlateau(plateau: list) -> list:
     """
+    Récupère toutes les séries de 4 pions alignés et l'ajoute dans une liste
 
     :param plateau: Tableau 2D représentant le plateau
-    :return: la liste de
+    :return: la liste des séries de 4 pions alignés
     """
     if not type_plateau(plateau) :
         raise TypeError("getPionsGagnantsPlateau : le paramètre n'est pas un plateau")
@@ -196,3 +197,25 @@ def getPionsGagnantsPlateau(plateau: list) -> list:
     liste.extend(detecter4diagonaleDirectePlateau(plateau, 1))
     liste.extend(detecter4diagonaleIndirectePlateau(plateau, 1))
     return liste
+
+def isRempliPlateau(plateau: list) -> bool:
+    """
+    Renvoie True ou False si le plateau est rempli ou non
+
+    :param plateau: Tableau 2D représentant le plateau
+    :return: booléen True si le tableau est rempli, False sinon
+    """
+    if not type_plateau(plateau) :
+        raise TypeError("isRempliPlateau : le paramètre n'est pas un plateau")
+
+    pions_premiere_ligne = []
+    for col in range(len(plateau[0])):
+        if plateau[0][col] != None:
+            pions_premiere_ligne.append(plateau[0][col])
+        else:
+            pions_premiere_ligne = []
+    return len(pions_premiere_ligne) == const.NB_COLUMNS
+
+pl = [[{'Couleur': 1, 'Identifiant': None}, {'Couleur': 1, 'Identifiant': None}, {'Couleur': 1, 'Identifiant': None}, {'Couleur': 1, 'Identifiant': None}, {'Couleur': 1, 'Identifiant': None}, {'Couleur': 1, 'Identifiant': None}, {'Couleur': 1, 'Identifiant': None}], [None, None, None, None, None, None, None], [None, None, None, None, None, None, None], [None, None, None, None, None, None, None], [None, None, None, None, None, None, None], [None, None, None, None, None, None, None]]
+p = construirePion(1)
+print(isRempliPlateau(pl))
