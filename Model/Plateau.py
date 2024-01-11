@@ -174,3 +174,25 @@ def detecter4diagonaleIndirectePlateau(plateau: list, couleur: int)-> list:
                     del serie_pion
     return liste_serie
 
+def getPionsGagnantsPlateau(plateau: list) -> list:
+    """
+
+    :param plateau: Tableau 2D représentant le plateau
+    :return: la liste de
+    """
+    if not type_plateau(plateau) :
+        raise TypeError("getPionsGagnantsPlateau : le paramètre n'est pas un plateau")
+    liste = []
+
+    #Récupération des gagnants jaune
+    liste.extend(detecter4verticalPlateau(plateau,0))
+    liste.extend(detecter4horizontalPlateau(plateau, 0))
+    liste.extend(detecter4diagonaleDirectePlateau(plateau, 0))
+    liste.extend(detecter4diagonaleIndirectePlateau(plateau, 0))
+
+    #Récupération des gagnants rouge
+    liste.extend(detecter4verticalPlateau(plateau, 1))
+    liste.extend(detecter4horizontalPlateau(plateau, 1))
+    liste.extend(detecter4diagonaleDirectePlateau(plateau, 1))
+    liste.extend(detecter4diagonaleIndirectePlateau(plateau, 1))
+    return liste
