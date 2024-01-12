@@ -116,14 +116,13 @@ def detecter4verticalPlateau(plateau: list, couleur: int) -> list:
        raise ValueError(f"detecter4verticalPlateau : La valeur de la couleur {couleur} n'est pas correcte")
 
    liste_serie = []
-   for colonnes in range(len(plateau)):
-       for i in range(5):
-           if plateau[i][colonnes] != None and plateau[i + 1][colonnes] != None and plateau[i + 2][colonnes] != None and plateau[i + 3][colonnes] != None:
-                    serie_pion = [plateau[i][colonnes], plateau[i + 1][colonnes], plateau[i + 2][colonnes],plateau[i + 3][colonnes]]
-                    if getCouleurPion(serie_pion[0]) == couleur and getCouleurPion(serie_pion[1]) == couleur and getCouleurPion(serie_pion[2]) == couleur and getCouleurPion(serie_pion[3]) == couleur:
-                        liste_serie.extend(serie_pion)
-                    else:
-                        del serie_pion
+   for colonne in range(len(plateau[0])):
+       for ligne in range(len(plateau) - 3):
+           if (plateau[ligne][colonne] != None and plateau[ligne + 1][colonne] != None and plateau[ligne + 2][
+               colonne] != None and plateau[ligne + 3][colonne] != None):
+               serie_pion = [plateau[ligne][colonne], plateau[ligne + 1][colonne], plateau[ligne + 2][colonne],plateau[ligne + 3][colonne]]
+               if (getCouleurPion(serie_pion[0]) == couleur and getCouleurPion(serie_pion[1]) == couleur and getCouleurPion(serie_pion[2]) == couleur and getCouleurPion(serie_pion[3]) == couleur):
+                   liste_serie.extend(serie_pion)
    return liste_serie
 
 def detecter4diagonaleDirectePlateau(plateau: list, couleur: int)->list:
@@ -142,12 +141,10 @@ def detecter4diagonaleDirectePlateau(plateau: list, couleur: int)->list:
     liste_serie = []
     for lignes in range(len(plateau)-3):
         for colonnes in range(len(plateau[lignes])-3):
-            if plateau[lignes][colonnes] != None and plateau[lignes+1][colonnes+1] != None and plateau[lignes+2][colonnes+2] != None and plateau[lignes+3][colonnes+3] != None:
+            if plateau[lignes][colonnes] is not None and plateau[lignes+1][colonnes+1] is not None and plateau[lignes+2][colonnes+2] is not None and plateau[lignes+3][colonnes+3] is not None:
                 serie_pion = [plateau[lignes][colonnes],plateau[lignes+1][colonnes+1],plateau[lignes+2][colonnes+2],plateau[lignes+3][colonnes+3]]
                 if getCouleurPion(serie_pion[0]) == couleur and getCouleurPion(serie_pion[1]) == couleur and getCouleurPion(serie_pion[2]) == couleur and getCouleurPion(serie_pion[3]) == couleur:
                     liste_serie.extend(serie_pion)
-                else:
-                    del serie_pion
     return liste_serie
 
 def detecter4diagonaleIndirectePlateau(plateau: list, couleur: int)-> list:
@@ -166,12 +163,10 @@ def detecter4diagonaleIndirectePlateau(plateau: list, couleur: int)-> list:
     liste_serie = []
     for lignes in range(3,len(plateau)):
         for colonnes in range(lignes):
-            if plateau[lignes][colonnes]!=None and plateau[lignes-1][colonnes+1] != None and plateau[lignes-2][colonnes+2] != None and plateau[lignes-3][colonnes+3] != None:
+            if plateau[lignes][colonnes]is not None and plateau[lignes-1][colonnes+1] is not None and plateau[lignes-2][colonnes+2] is not None and plateau[lignes-3][colonnes+3] is not None:
                 serie_pion = [plateau[lignes][colonnes],plateau[lignes-1][colonnes+1],plateau[lignes-2][colonnes+2],plateau[lignes-3][colonnes+3]]
                 if getCouleurPion(serie_pion[0]) == couleur and getCouleurPion(serie_pion[1]) == couleur and getCouleurPion(serie_pion[2]) == couleur and getCouleurPion(serie_pion[3]) == couleur:
                     liste_serie.extend(serie_pion)
-                else:
-                    del serie_pion
     return liste_serie
 
 def getPionsGagnantsPlateau(plateau: list) -> list:
@@ -216,6 +211,3 @@ def isRempliPlateau(plateau: list) -> bool:
             pions_premiere_ligne = []
     return len(pions_premiere_ligne) == const.NB_COLUMNS
 
-pl = [[{'Couleur': 1, 'Identifiant': None}, {'Couleur': 1, 'Identifiant': None}, {'Couleur': 1, 'Identifiant': None}, {'Couleur': 1, 'Identifiant': None}, {'Couleur': 1, 'Identifiant': None}, {'Couleur': 1, 'Identifiant': None}, {'Couleur': 1, 'Identifiant': None}], [None, None, None, None, None, None, None], [None, None, None, None, None, None, None], [None, None, None, None, None, None, None], [None, None, None, None, None, None, None], [None, None, None, None, None, None, None]]
-p = construirePion(1)
-print(isRempliPlateau(pl))

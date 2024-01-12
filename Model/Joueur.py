@@ -1,7 +1,7 @@
 from Model.Constantes import *
 from Model.Pion import *
 from Model.Plateau import *
-
+from random import *
 
 
 #
@@ -127,3 +127,40 @@ def setPlacerPionJoueur(joueur: dict, fn) -> None :
     joueur[const.PLACER_PION] = fn
     return None
 
+
+def _placerPionJoueur(joueur: dict) -> int:
+    """
+    Place un pion aléatoirement dans une colonne entre 0 et const.NB_COLUMNS -1
+
+    :param joueur: Dictionnaire représentant le joueur
+    :return: un entier représentant une colonne
+    """
+
+    num_col = randint(0, const.NB_COLUMNS - 1)
+    plateau = joueur[const.PLATEAU]
+    while plateau[0][num_col] != None:
+        num_col = randint(0, const.NB_COLUMNS - 1)
+    return num_col
+
+
+def initialiserIAJoueur(joueur: dict, booleen: bool) -> None:
+    """
+    Initialise l'ordre des joueurs selon la valeur du booléen
+
+    :param joueur: Dictionnaire représentant le joueur
+    :param booleen: True si le joueur commence, False sinon
+    :return: Rien
+    """
+    if not type_joueur(joueur):
+        raise TypeError("initialiserIAJoueur : Le premier paramètre ne correspond pas à joueur")
+    if type(booleen) != bool:
+        raise TypeError("initialiserIAJoueur : Le second paramètre n'est pas un booléen")
+    if booleen:
+        setPlacerPionJoueur(joueur, _placerPionJoueur)
+    if not booleen :
+        setPlacerPionJoueur(joueur, _placerPionJoueur)
+    return None
+
+
+
+     
