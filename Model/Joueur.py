@@ -161,6 +161,35 @@ def initialiserIAJoueur(joueur: dict, booleen: bool) -> None:
         setPlacerPionJoueur(joueur, _placerPionJoueur)
     return None
 
+def getModeEtenduJoueur(joueur: dict)-> bool:
+    """
+    Détermine si on est en mode étendu ou non
+    :param joueur: Dictionnaire représentant un joueur
+    :return: Renvoie un booléen True si on est en mode étendu, False sinon
+    """
+    if not type_joueur(joueur):
+        raise TypeError("getModeEtenduJoueur : le paramètre ne correspond pas à un joueur")
+
+    return const.MODE_ETENDU in joueur
 
 
-     
+def setModeEtenduJoueur(joueur: dict, etendu: bool) -> None:
+    """
+    Fonction qui active le mode etendu ou non selon la valeur du booléen en paramètre
+
+    :param joueur: Dictionnaire représentant un joueur
+    :param etendu: Booléen initialisé a True par défaut
+    :return: Renvoie rien
+    """
+    if not type_joueur(joueur):
+        raise TypeError("setModeEtenduJoueur : le paramètre ne correspond pas à un joueur")
+    if type(etendu) != bool:
+        raise TypeError("setModeEtenduJoueur : le paramètre ne correspond pas à un booléen")
+
+    if etendu:
+        joueur[const.MODE_ETENDU] = True
+    else :
+        if const.MODE_ETENDU in joueur:
+            del joueur[const.MODE_ETENDU]
+    return None
+
