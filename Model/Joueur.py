@@ -136,12 +136,15 @@ def _placerPionJoueur(joueur: dict) -> int:
     :return: un entier représentant une colonne
     """
 
-    num_col = randint(0, const.NB_COLUMNS - 1)
-    plateau = joueur[const.PLATEAU]
-    while plateau[0][num_col] != None:
+    if const.MODE_ETENDU not in joueur:
         num_col = randint(0, const.NB_COLUMNS - 1)
+        plateau = joueur[const.PLATEAU]
+        while plateau[0][num_col] != None:
+            num_col = randint(0, const.NB_COLUMNS - 1)
+    else:
+        num_col = randint(-const.NB_LINES, const.NB_COLUMNS + const.NB_LINES - 1)
+        plateau = joueur[const.PLATEAU]
     return num_col
-
 
 def initialiserIAJoueur(joueur: dict, booleen: bool) -> None:
     """
